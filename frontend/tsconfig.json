@@ -8,6 +8,7 @@
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "types": ["vite/client"],
     "outDir": "./dist"
   },
   "include": ["src"]
