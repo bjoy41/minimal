@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Container, Title, TextInput, Button, Group, Checkbox, Text, Stack, ActionIcon } from '@mantine/core'
 
 interface Item {
   id: number
@@ -49,36 +50,42 @@ function App() {
   }
 
   return (
-    <div style={{ maxWidth: 500, margin: '40px auto', fontFamily: 'sans-serif' }}>
-      <h1>Minimal App</h1>
+    <Container size="xs" py="xl">
+      <Title order={1} mb="lg">Minimal App</Title>
 
-      <form onSubmit={addItem} style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
-        <input
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          placeholder="Add an item..."
-          style={{ flex: 1, padding: '8px 12px', fontSize: 14 }}
-          autoFocus
-        />
-        <button type="submit" style={{ padding: '8px 16px' }}>Add</button>
+      <form onSubmit={addItem}>
+        <Group mb="lg">
+          <TextInput
+            value={newName}
+            onChange={(e) => setNewName(e.currentTarget.value)}
+            placeholder="Add an item..."
+            style={{ flex: 1 }}
+            autoFocus
+          />
+          <Button type="submit">Add</Button>
+        </Group>
       </form>
 
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <Stack gap="xs">
         {items.map((item) => (
-          <li key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 0', borderBottom: '1px solid #eee' }}>
-            <input type="checkbox" checked={item.done} onChange={() => toggleItem(item)} />
-            <span style={{ flex: 1, textDecoration: item.done ? 'line-through' : 'none', color: item.done ? '#999' : '#333' }}>
-              {item.name}
-            </span>
-            <button onClick={() => deleteItem(item.id)} style={{ color: 'red', border: 'none', background: 'none', cursor: 'pointer' }}>
-              x
-            </button>
-          </li>
+          <Group key={item.id} justify="space-between" wrap="nowrap">
+            <Checkbox
+              checked={item.done}
+              onChange={() => toggleItem(item)}
+              label={item.name}
+              styles={item.done ? { label: { textDecoration: 'line-through', color: 'var(--mantine-color-dimmed)' } } : undefined}
+            />
+            <ActionIcon variant="subtle" color="red" onClick={() => deleteItem(item.id)}>
+              ✕
+            </ActionIcon>
+          </Group>
         ))}
-      </ul>
+      </Stack>
 
-      {items.length === 0 && <p style={{ color: '#999', textAlign: 'center' }}>No items yet</p>}
-    </div>
+      {items.length === 0 && (
+        <Text c="dimmed" ta="center" mt="xl">No items yet</Text>
+      )}
+    </Container>
   )
 }
 

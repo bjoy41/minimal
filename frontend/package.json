@@ -8,6 +8,8 @@
     "build": "tsc -b && vite build"
   },
   "dependencies": {
+    "@mantine/core": "^7.17.0",
+    "@mantine/hooks": "^7.17.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
